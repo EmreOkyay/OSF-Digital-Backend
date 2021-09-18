@@ -1,0 +1,35 @@
+{
+  "name": "npx",
+  "version": "1.0.0",
+  "engines": {
+    "npm": "^6.14.x",
+    "node": "^14.17.x"
+  },
+  "private": true,
+  "description": "OSF Backend Project.",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "nyc mocha",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^4.5.0",
+    "express-session": "^1.13.0",
+    "heroku": "^7.59.0",
+    "mongoose": "^6.0.0",
+    "pug": "^3.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1",
+    "nyc": "^15.1.0"
+  }
+}
