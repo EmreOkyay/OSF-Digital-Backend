@@ -1,0 +1,16 @@
+extends layout 
+
+block content
+    ul(style='list-style-type:none')
+      if categories.image == nullData 
+          continue
+      else if categories.id == subCatId
+          .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
+            h3.text-center= categories.name
+            hr
+            p= categories.page_title
+            img(src='../../images/' + categories.image)
+            li= categories.page_description
+            a(href='/categories/' + categories.id)
+                input(type='button' value='View Products')
+            br

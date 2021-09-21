@@ -1,17 +1,18 @@
 extends layout 
 
-block content 
-    ul
-      each val in categories 
-        if val.image == nullData 
-          continue
-        else if val.parent_category_id == parentId
-          .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
-            h3.text-center= val.name
-            hr
-            p= val.page_title
-            img(src='images/' + val.image)
-            li= val.page_description
-            a(href='/categories/' + val.id)
-              input(type='button' value='View Products')
-            br
+block content
+  h2= categories[0].parent_category_id 
+  ul(style='list-style-type:none')
+    each val in categories 
+      if val.image == nullData 
+        continue
+      else if val.parent_category_id == parentId
+        .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
+          h3.text-center= val.name
+          hr
+          p= val.page_title
+          img(src='../../images/' + val.image)
+          li= val.page_description
+          a(href='/categories/' + val.id)
+            input(type='button' value='View Products')
+          br

@@ -1,13 +1,10 @@
 extends layout
 
 block content
-  h2 MAIN CATEGORY NAME
-  p Category description: This is the place holder for main category description
-  br
-  h3 Subcategories
+  h2 All Categories
   br
   .subcategories
-    ul 
+    ul(style='list-style-type:none') 
       each val in categories
         if val.image == nullData
           continue
