@@ -83,6 +83,7 @@ router.get('/categories', function(request, response, next) {
 // Get Products
 router.get('/products/product_search', function(request, response, next) {
     let category_id = request.query.id;
+    console.log(response);
     
     // If the query isn't a number, show all the products, if it's a number, show the specific product
     if(isNaN(category_id)){

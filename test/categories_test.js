@@ -5,9 +5,9 @@ const express = require('express');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use("/categories", index);
-app.use("/categories/parent/:id", index);
-app.use("/categories/:id", index);   
+app.use('/categories', index);
+app.use('/categories/parent/:id', index);
+app.use('/categories/:id', index);   
 
 // All Categories Test
 describe('GET /categories', function() {
@@ -18,6 +18,7 @@ describe('GET /categories', function() {
         .expect(function(res) {
             res.body = {};
             res.method = 'GET';
+            res.Data = typeof Object;
           })
         .expect(301, done);
     });
@@ -32,6 +33,7 @@ describe('GET /categories/:id', function() {
         .expect(function(res) {
             res.body = {};
             res.method = 'GET';
+            res.Data = typeof Object;
           })
         .expect(301, done);
     });
@@ -46,6 +48,7 @@ describe('GET /categories/parent/:id', function() {
         .expect(function(res) {
             res.body = {};
             res.method = 'GET';
+            res.Data = typeof Object;
           })
         .expect(301, done);
     });
