@@ -11,6 +11,6 @@ block content
             p= categories.page_title
             img(src='../../images/' + categories.image)
             li= categories.page_description
-            a(href='/categories/' + categories.id)
+            a(href='/products/product_search?id=' + categories.id)
                 input(type='button' value='View Products')
             br

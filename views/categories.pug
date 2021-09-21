@@ -13,6 +13,6 @@ block content
           p= val.page_title
           img(src='../../images/' + val.image)
           li= val.page_description
-          a(href='/categories/' + val.id)
+          a(href='/products/product_search?id=' + val.id)
             input(type='button' value='View Products')
           br
