@@ -15,8 +15,6 @@ router.use(express.static('public')); // DON'T FORGET THIS, IMPORTANT  FOR STATI
 router.get('/categories/parent/:id', function(request, response, next) {
     let id = request.params.id;
     let parentCatUrl = `${baseUrl}categories/parent/${id}?secretKey=${secretKey}`;
-    // console.log("THIS IS THE RESPONSE: ");
-    console.log(response);
 
     https.get(parentCatUrl, res => {  
         let body = '';
