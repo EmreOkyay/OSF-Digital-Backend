@@ -1,8 +1,15 @@
 extends layout 
 
 block content
-  h2= categories[0].parent_category_id 
+  nav(aria-label='breadcrumb')
+      ol.breadcrumb
+          li.breadcrumb-item
+              a(href='#') Home
+          li.breadcrumb-item
+              a(href='/categories') Categories
+          li.breadcrumb-item.active(aria-current='page') #{ categories[0].parent_category_id }   
   ul(style='list-style-type:none')
+    h2= categories[0].parent_category_id
     each val in categories 
       if val.image == nullData 
         continue

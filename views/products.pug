@@ -1,6 +1,15 @@
 extends layout 
 
 block content
+    nav(aria-label='breadcrumb')
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href='#') Home
+            li.breadcrumb-item
+                a(href='/categories') Categories
+            li.breadcrumb-item
+                a(href='/categories/parent/' + breadcrumbId) #{breadcrumbId}                
+            li.breadcrumb-item.active(aria-current='page') #{productId}    
     ul(style='list-style-type:none')
         .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
             each val in products

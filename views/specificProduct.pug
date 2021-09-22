@@ -1,11 +1,24 @@
 extends layout 
 
 block content
+    nav(aria-label='breadcrumb')
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href='#') Home
+            li.breadcrumb-item
+                a(href='/categories') Categories
+            li.breadcrumb-item
+                a(href='/categories/parent/' + secondBreadcrumbId) #{secondBreadcrumbId}                     
+            li.breadcrumb-item
+                a(href='/products/product_search?id=' + breadcrumbId) #{breadcrumbId}  
+            li.breadcrumb-item.active(aria-current='page') #{productId}  
     ul(style='list-style-type:none')
         .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
                 h3= products[0].image_groups[0].images[0].title
                 img(src='../../images/' + products[0].image_groups[0].images[0].link)
                 p= products[0].long_description
+                a(href='#')
+                    input(type='button' value='Buy now')
                 if products[0].currency == 'USD'
                     p Price: $ #{products[0].price}
                 br

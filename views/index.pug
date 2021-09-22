@@ -3,6 +3,11 @@ extends layout
 block content
   h2 All Categories
   br
+  nav(aria-label='breadcrumb')
+      ol.breadcrumb
+          li.breadcrumb-item
+              a(href='#') Home
+          li.breadcrumb-item.active(aria-current='page') Categories    
   .subcategories
     ul(style='list-style-type:none') 
       each val in categories

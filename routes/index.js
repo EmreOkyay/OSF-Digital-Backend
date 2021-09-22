@@ -25,6 +25,18 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
+// Function so we can clear the primary_category_id for breadcrumb and use it as a main category
+var removeWords = function(txt) {
+    var wordsArray = [
+        '-luggage', '-ties', '-accessories', '-dress-shirts', '-pants', '-shorts', '-sportscoats', '-suits',
+        '-footwear', '-bottoms', '-dresses', '-jackets', '-tops', '-earrings', '-necklaces'
+    ];
+
+    var expStr = wordsArray.join("|");
+    return txt.replace(new RegExp('\\b(' + expStr + ')\\b', 'gi'), ' ')
+    .replace(/\s{2,}/g, ' ');
+}
+
 // NOTE: function of router.get has 'request' and 'response' cause router 'res' was being mistaken for https res
 
 // Get Categories by Parent Id
@@ -42,6 +54,7 @@ router.get('/categories/parent/:id', function(request, response, next) {
         res.on('end', () => {
             const categoryData = JSON.parse(body);
             Data = categoryData;
+            dataCarrier = categoryData;
 
             response.render('categories', { categories: Data,
                 nullData: 'categories/category_404.png',
@@ -98,11 +111,11 @@ router.get('/categories', function(request, response, next) {
 
 // Get Products
 router.get('/products/product_search', function(request, response, next) {
-    let category_id = request.query.id;
+    let product_id = request.query.id;
     
     // If the query isn't a number, show all the products, if it's a number, show the specific product
-    if(isNaN(category_id)){
-        var allProducts = `${base_url}products/product_search?primary_category_id=${category_id}&secretKey=${secretKey}`;
+    if(isNaN(product_id)){
+        var allProducts = `${base_url}products/product_search?primary_category_id=${product_id}&secretKey=${secretKey}`;
 
         https.get(allProducts, res => {
             let body = '';
@@ -116,8 +129,11 @@ router.get('/products/product_search', function(request, response, next) {
             res.on('end', () => {
                 const categoryData = JSON.parse(body);
                 Data = categoryData;
+                breadcrumb_id = removeWords(product_id);
     
-                response.render('products', { products: Data });
+                response.render('products', { products: Data, 
+                                              productId: product_id,
+                                              breadcrumbId: breadcrumb_id});
                 // console.log(Data[0].master.master_id);
             });
         });
@@ -137,8 +153,13 @@ router.get('/products/product_search', function(request, response, next) {
             res.on('end', () => {
                 const categoryData = JSON.parse(body);
                 Data = categoryData;
+                breadcrumb_id = Data[0].primary_category_id;
+                breadcrumb_id_2 = removeWords(breadcrumb_id);
     
-                response.render('specificProduct', { products: Data });
+                response.render('specificProduct', { products: Data,
+                                                     productId: product_id,
+                                                     breadcrumbId: breadcrumb_id,
+                                                     secondBreadcrumbId: breadcrumb_id_2 });
             });
         });
      }
