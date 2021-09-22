@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const https = require('https');
+const Sentry = require('@sentry/node');
+const Tracing = require('@sentry/tracing');
+const app = express();
 
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
@@ -8,6 +11,19 @@ const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m'
 let Data = ''; // Global Variable
 
 router.use(express.static('public')); // DON'T FORGET THIS, IMPORTANT  FOR STATIC ASSETS
+
+// Sentry Set Up
+Sentry.init({
+    dsn: "https://f38f23aa1b864887a40bd62da2fb1457@o1001494.ingest.sentry.io/5972902",
+    integrations: [
+      new Sentry.Integrations.Http({ tracing: true }),
+      new Tracing.Integrations.Express({ app }),
+    ],
+    tracesSampleRate: 1.0,
+});
+  
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
 
 // NOTE: function of router.get has 'request' and 'response' cause router 'res' was being mistaken for https res
 
@@ -83,7 +99,6 @@ router.get('/categories', function(request, response, next) {
 // Get Products
 router.get('/products/product_search', function(request, response, next) {
     let category_id = request.query.id;
-    console.log(response);
     
     // If the query isn't a number, show all the products, if it's a number, show the specific product
     if(isNaN(category_id)){

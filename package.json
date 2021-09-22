@@ -13,6 +13,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@sentry/node": "^6.13.2",
+    "@sentry/tracing": "^6.13.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "connect-mongo": "^4.5.0",
