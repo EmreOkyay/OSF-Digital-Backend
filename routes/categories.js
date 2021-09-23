@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const https = require('https');
+var mid = require('../middleware');
 
 
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
@@ -13,7 +14,7 @@ router.use(express.static('public'));
 // NOTE: function of router.get has 'request' and 'response' cause router 'res' was being mistaken for https res
 
 // Get Categories by Parent Id
-router.get('/parent/:id', function(request, response, next) {
+router.get('/parent/:id', mid.requiresLogin, function(request, response, next) {
     let id = request.params.id;
     let parentCatUrl = `${base_url}categories/parent/${id}?secretKey=${secretKey}`;
 
@@ -37,7 +38,7 @@ router.get('/parent/:id', function(request, response, next) {
 });
 
 // Get Categories by Id
-router.get('/:id', function(request, response, next) {
+router.get('/:id', mid.requiresLogin, function(request, response, next) {
     let id = request.params.id;
     var specificCatUrl = `${base_url}categories/${id}?secretKey=${secretKey}`;
 
@@ -60,7 +61,7 @@ router.get('/:id', function(request, response, next) {
 });
 
 // Gel All Categories
-router.get('/', function(request, response, next) {
+router.get('/', mid.requiresLogin, function(request, response, next) {
     var allCategories = `${base_url}categories?secretKey=${secretKey}`;
 
     https.get(allCategories, res => {

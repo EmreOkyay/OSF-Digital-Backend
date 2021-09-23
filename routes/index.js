@@ -5,6 +5,7 @@ const Sentry = require('@sentry/node');
 const Tracing = require('@sentry/tracing');
 const app = express();
 const User = require('../models/user');
+var mid = require('../middleware');
 
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
@@ -26,7 +27,7 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-router.get('/auth/signup', (req, res) => {
+router.get('/auth/signup', mid.loggedOut, (req, res) => {
     res.render('signup');
 });
 
@@ -67,11 +68,11 @@ router.post('/auth/signup', function(req, res, next) {
 });
 
 // SignIn
-router.get('/auth/signin', function(req, res, next) {
+router.get('/auth/signin', mid.loggedOut, function(req, res, next) {
     return res.render('signin');
 });
 
-// This is how we authenticate a user in index.js, look at user.js too
+// How to Authenticate Users
 router.post('/auth/signin', function(req, res, next) {
     if (req.body.email && req.body.password) {
       User.authenticate(req.body.email, req.body.password, function (error, user) {
@@ -81,7 +82,7 @@ router.post('/auth/signin', function(req, res, next) {
           return next(err);
         }  else {
           req.session.userId = user._id;
-          return res.redirect('/'); // /welcome is gonna be /profile
+          return res.redirect('/');
         }
       });
     } else {
@@ -98,6 +99,7 @@ router.get('/auth/signout', function(req, res, next) {
             if (err) {
                 return next(err);
             } else {
+                res.clearCookie('name');
                 return res.redirect('/auth/signin');
             }
         });

@@ -10,6 +10,7 @@ var categorieRouter = require('./routes/categories');
 var productRouter = require('./routes/products');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var MongoStore = require('connect-mongo');
 
 var app = express();
 
@@ -17,7 +18,10 @@ var app = express();
 app.use(session({
   secret: 'this is a secret',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongoUrl: 'mongodb://localhost:27017/OSF-Login'
+  })
 }));
 
 // Makes userId avaliable in templates
@@ -26,6 +30,13 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+// mongodb connection
+mongoose.connect('mongodb://localhost:27017/OSF-Login');
+var db = mongoose.connection;
+
+// mongo error
+db.on('error', console.error.bind(console, 'connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,12 +47,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// mongodb connection
-mongoose.connect('mongodb://localhost:27017/OSF-Login');
-var db = mongoose.connection;
-// mongo error
-db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

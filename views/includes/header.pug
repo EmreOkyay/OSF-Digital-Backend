@@ -1,9 +1,15 @@
 header  
-    // Project Title
-    // Category names displayed in a navigation menu fashion
-    // Breadcrumbs navigation
     .sticky-top.hstack.gap-3
-        h1 Alibazon E-Commerce
+        h1 
+            a(href='/') Alibazon E-Commerce
+        if !currentUser
+            form(action='/auth/signin')
+                input(type='submit' value='Sign In')
+            form(action='/auth/signup')
+                input(type='submit' value='Sign Up')
+        else 
+            form(action='/auth/signout')
+                input(type='submit' value='Sign Out')
         .dropdown.ms-auto
             button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
                 | Womens

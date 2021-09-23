@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const https = require('https');
+var mid = require('../middleware');
 
 
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
@@ -23,7 +24,7 @@ var removeWords = function(txt) {
 }
 
 // Get Products
-router.get('/product_search', function(request, response, next) {
+router.get('/product_search', mid.requiresLogin, function(request, response, next) {
     let product_id = request.query.id;
     
     // If the query isn't a number, show all the products, if it's a number, show the specific product
