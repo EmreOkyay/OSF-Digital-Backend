@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+    h1 Sign In
+    form(action='/auth/signin', method='post') 
+        label Please enter your email: 
+            input(type='text', name='email')
+        br 
+        label Please enter your password: 
+            input(type='text', name='password')
+        br     
+        button(type='submit') Submit

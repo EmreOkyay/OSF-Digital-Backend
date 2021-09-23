@@ -1,4 +1,7 @@
 extends layout 
 
 block content
-    h1 Welcome #{userName}, this is the Home Page
+    nav(aria-label='breadcrumb')
+        ol.breadcrumb
+            li.breadcrumb-item.active(aria-current='page') Home / 
+    h1 Welcome #{name}, this is the Home Page
