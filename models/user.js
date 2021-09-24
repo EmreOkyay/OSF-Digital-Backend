@@ -2,21 +2,25 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
 var UserSchema = new mongoose.Schema({
+    _id: { type: String },
+    secretKey: { type: String },
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
     email: {
         type: String,
         unique: true,
         required: true,
         trim: true
     },
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
     password: {
         type: String,
         required: true
-    }
+    },
+    createdAt: { type:String },
+    token: { type: String }
 })
 
 // authenticate input against database documents, This is how we authenticate in user.js, look at index.js too

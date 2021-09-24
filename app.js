@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var categorieRouter = require('./routes/categories');
 var productRouter = require('./routes/products');
+// var authenticationRouter = require('./routes/auth');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo');
