@@ -15,17 +15,25 @@ header
                 | Womens
             ul.dropdown-menu(aria-labelledby='dropdownMenuButton1')
                 li
-                    a.dropdown-item(href='../../categories/parent/womens-clothing') Womens Clothing
+                    a.dropdown-item(href='../../categories/women') All
                 li
-                    a.dropdown-item(href='../../categories/parent/womens-accessories') Womens Accessories
+                    a.dropdown-item(href='../../categories/women/womens-clothing') Womens Clothing
                 li
-                    a.dropdown-item(href='../../categories/parent/womens-jewelry') Womens Jewelry
+                    a.dropdown-item(href='../../categories/women/womens-accessories') Womens Accessories
+                li
+                    a.dropdown-item(href='../../categories/women/womens-jewelry') Womens Jewelry
         .dropdown
             button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
                 | Mens
             ul.dropdown-menu(aria-labelledby='dropdownMenuButton1')
                 li
-                    a.dropdown-item(href='../../categories/parent/mens-clothing') Mens Clothing
+                    a.dropdown-item(href='../../categories/men') All            
                 li
-                    a.dropdown-item(href='../../categories/parent/mens-accessories') Mens Accessories
+                    a.dropdown-item(href='../../categories/men/mens-clothing') Mens Clothing
+                li
+                    a.dropdown-item(href='../../categories/men/mens-accessories') Mens Accessories
+        form.form-inline.my-2.my-lg-0
+            input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
+            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
     hr 
+

@@ -1,13 +1,13 @@
-const index = require('../routes/index.js');
+const categories = require('../routes/index.js');
 
 const request = require('supertest');
 const express = require('express');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use('/categories', index);
-app.use('/categories/parent/:id', index);
-app.use('/categories/:id', index);   
+app.use('/categories', categories);
+app.use('/categories/:parent/:id', categories);
+app.use('/categories/:id', categories);   
 
 // All Categories Test
 describe('GET /categories', function() {
@@ -40,7 +40,7 @@ describe('GET /categories/:id', function() {
 });
 
 // Categories by Parent Id Test
-describe('GET /categories/parent/:id', function() {
+describe('GET /categories/:parent/:id', function() {
     it('should load category data by Parent Id and redirect to category page', function(done) {
       request(app)
         .get('/categories/parent/:id')

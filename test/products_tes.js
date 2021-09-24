@@ -1,11 +1,11 @@
-const index = require('../routes/index.js');
+const products = require('../routes/index.js');
 
 const request = require('supertest');
 const express = require('express');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use('/products/product_search', index);  
+app.use('/products/product_search', products);  
 
 // Products Test
 describe('GET /products/product_search', function() {
