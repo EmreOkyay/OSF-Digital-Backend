@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var categorieRouter = require('./routes/categories');
 var productRouter = require('./routes/products');
-// var authenticationRouter = require('./routes/auth');
+var authenticationRouter = require('./routes/auth');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo');
@@ -53,6 +53,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/categories', categorieRouter);
 app.use('/products', productRouter);
+app.use('/auth', authenticationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

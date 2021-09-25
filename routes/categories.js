@@ -41,9 +41,26 @@ router.get('/:parent/:id', mid.requiresLogin, function(request, response, next) 
 // Get Categories by Id
 router.get('/:id', mid.requiresLogin, function(request, response, next) {
     let id = request.params.id;
-    var specificCatUrl = `${base_url}categories/${id}?secretKey=${secretKey}`;
+    var allCat = `${base_url}categories?secretKey=${secretKey}`;
+    var search_word = '';
 
-    https.get(specificCatUrl, res => {
+    if(id === 'women') {
+        search_word = 'womens';
+    } else if (id === 'men') {
+        search_word = 'mens';
+    }
+
+    function women_or_men(data) {
+        let newData = [];
+        for (var i = 0; i < data.length; i++){
+            if(data[i].id.startsWith(search_word)) {
+                newData.push(data[i]);
+            }
+        }
+        return newData;
+    }
+
+    https.get(allCat, res => {
         let body = '';
 
         res.on('data', data => {
@@ -53,10 +70,11 @@ router.get('/:id', mid.requiresLogin, function(request, response, next) {
         res.on('end', () => {
             const categoryData = JSON.parse(body);
             Data = categoryData;
+            let genderData = women_or_men(Data);
 
-            response.render('subCategories', { categories: Data,
+            response.render('subCategories', { categories: genderData,
                 nullData: 'categories/category_404.png',
-                subCatId: id });   
+                searchWord: search_word });   
         });
     });
 });

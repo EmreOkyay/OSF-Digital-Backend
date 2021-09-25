@@ -7,8 +7,6 @@ var mid = require('../middleware');
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
 
-let Data = '';
-
 router.use(express.static('public'));
 
 // Function so we can clear the primary_category_id for breadcrumb and use it as a main category
@@ -48,7 +46,6 @@ router.get('/product_search', mid.requiresLogin, function(request, response, nex
                 response.render('products', { products: Data, 
                                               productId: product_id,
                                               breadcrumbId: breadcrumb_id});
-                // console.log(Data[0].master.master_id);
             });
         });
      } else {
