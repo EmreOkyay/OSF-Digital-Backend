@@ -13,20 +13,17 @@ block content
     ul(style='list-style-type:none')
         .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
             each val in products
-                .container 
-                    .row 
-                        .col-5
-                            h3= val.image_groups[0].images[0].title
-                            img(src='../../images/' + val.image_groups[0].images[0].link)
-                        .col-6
-                            br
-                            p= val.short_description
-                            if val.currency == 'USD'
-                                p Price: $ #{val.price}
-                            a(href='/products/product_search?id=' + val.master.master_id)
-                                button.btn.btn-light(type='button') More Info
-                            br
-                            br
+                .container.row.mb-5.pb-5
+                    .col-9
+                        h3= val.image_groups[0].images[0].title
+                    .col-5
+                        img(src='../../images/' + val.image_groups[0].images[0].link)
+                    .col-6
+                        br
+                        p= val.short_description
+                        p Price: $ #{val.price}
+                        a(href='/products/product_search?id=' + val.id)
+                            button.btn.btn-light(type='button') More Info
 
             // val.page_description ?? , val.price, val.id, val.currency,
             // val.image_groups[0] ve [1] = large, [2] ve [3] = medium, ...

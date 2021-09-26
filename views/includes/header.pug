@@ -1,39 +1,36 @@
 header  
     .sticky-top.hstack.gap-3
         h1 
-            a(href='/') Alibazon E-Commerce
-        if !currentUser
-            form(action='/auth/signin')
-                input(type='submit' value='Sign In')
-            form(action='/auth/signup')
-                input(type='submit' value='Sign Up')
-        else 
-            form(action='/auth/signout')
-                input(type='submit' value='Sign Out')
-        .dropdown.ms-auto
-            button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
-                | Womens
-            ul.dropdown-menu(aria-labelledby='dropdownMenuButton1')
-                li
-                    a.dropdown-item(href='../../categories/women') All
-                li
-                    a.dropdown-item(href='../../categories/women/womens-clothing') Womens Clothing
-                li
-                    a.dropdown-item(href='../../categories/women/womens-accessories') Womens Accessories
-                li
-                    a.dropdown-item(href='../../categories/women/womens-jewelry') Womens Jewelry
-        .dropdown
-            button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
-                | Mens
-            ul.dropdown-menu(aria-labelledby='dropdownMenuButton1')
-                li
-                    a.dropdown-item(href='../../categories/men') All            
-                li
-                    a.dropdown-item(href='../../categories/men/mens-clothing') Mens Clothing
-                li
-                    a.dropdown-item(href='../../categories/men/mens-accessories') Mens Accessories
-        form.searchBar.form-inline.my-2.my-lg-0(action='/')
-            input.inputBar.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
-            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
-    hr 
+            a.text-decoration-none.text-light(href='/') Alibazon E-Commerce
+        .d-flex.flex-row
+            if !currentUser
+                form.p-2(action='/auth/signin')
+                    input(type='submit' value='Sign In')
+                form.p-2(action='/auth/signup')
+                    input(type='submit' value='Sign Up')
+            else 
+                form.p-2(action='/auth/signout')
+                    input(type='submit' value='Sign Out')
+                .dropdown.p-2
+                    button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                        | Womens
+                    ul.dropdown-menu(aria-labelledby='dropdownMenuButton1')
+                        li
+                            a.dropdown-item(href='../../categories/women') All
+                        li
+                            a.dropdown-item(href='../../categories/women/womens-clothing') Womens Clothing
+                        li
+                            a.dropdown-item(href='../../categories/women/womens-accessories') Womens Accessories
+                        li
+                            a.dropdown-item(href='../../categories/women/womens-jewelry') Womens Jewelry
+                .dropdown.p-2
+                    button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                        | Mens
+                    ul.dropdown-menu(aria-labelledby='dropdownMenuButton1')
+                        li
+                            a.dropdown-item(href='../../categories/men') All            
+                        li
+                            a.dropdown-item(href='../../categories/men/mens-clothing') Mens Clothing
+                        li
+                            a.dropdown-item(href='../../categories/men/mens-accessories') Mens Accessories
 

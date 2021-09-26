@@ -9,22 +9,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/auth/signup', signup);
 
 const data = {
-           secretKey: secretKey,
-           name: 'aaa',
-           email: 'aaa@hotmail.com',
-           password: '123456'
+    secretKey: secretKey,
+    name: 'aaa',
+    email: 'aaa@hotmail.com',
+    password: '123456'
 };
 
 describe('POST /auth/signup', function() {
-it('responds with json', function(done) {
-    request(app)
-    .post('/auth/signup')
-    .send({ data })
-    .expect('Content-Type', 'text/html; charset=utf-8')
-    .expect(200)
-    .end(function(err, res) {
-        if (err) return done(err);
-        return done();
+    it('responds with json', function(done) {
+        request(app)
+        .post('/auth/signup')
+        .send({ data })
+        .expect('Content-Type', 'text/html; charset=utf-8')
+        .expect(200)
+        .end(function(err, res) {
+            if (err) return done(err);
+            return done();
+        });
     });
-});
 });

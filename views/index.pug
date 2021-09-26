@@ -1,25 +1,14 @@
-extends layout
+extends layout 
 
 block content
-  h2 All Categories
-  br
-  nav(aria-label='breadcrumb')
-      ol.breadcrumb
-          li.breadcrumb-item
-              a(href='/') Home
-          li.breadcrumb-item.active(aria-current='page') Categories    
-  .subcategories
-    ul(style='list-style-type:none') 
-      each val in categories
-        if val.image == nullData
-          continue
-        else
-          .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
-            h3.text-center= val.name
-            hr
-            p= val.page_title
-            img(src='images/' + val.image)
-            li= val.page_description
-            a(href='/products/product_search?id=' + val.id)
-              input(type='button' value='View Products')
-            br
+    nav(aria-label='breadcrumb')
+        ol.breadcrumb
+            li.breadcrumb-item
+                a(href='/') Home
+    .text-center
+        h1 Home Page
+        h3 Please choose a category
+        a(href='../../categories/women')
+            img(src='images/personal/womens.png' width='189' height='369')
+        a(href='../../categories/men')
+            img(src='images/personal/mens.png' width='200' height='369')

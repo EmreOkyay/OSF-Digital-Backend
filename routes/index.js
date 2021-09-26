@@ -22,7 +22,7 @@ app.use(Sentry.Handlers.tracingHandler());
 // Read the name from the cookie
 router.get('/', (req, res, next) => {
     let name = req.cookies.name;
-    res.render('home', { name });
+    res.render('index', { name });
 });
 
 

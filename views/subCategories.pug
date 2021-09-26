@@ -12,7 +12,9 @@ block content
         each val in categories 
             if val.image == nullData 
                 continue
-            else
+            else if val.id == 'mens-clothing' || val.id == 'womens-clothing' || val.id == 'womens-jewelry' || val.id == 'womens-accessories'
+                continue 
+            else 
                 .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
                 h3.text-center= val.name
                 hr

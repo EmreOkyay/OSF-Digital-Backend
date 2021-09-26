@@ -31,9 +31,9 @@ router.get('/:parent/:id', mid.requiresLogin, function(request, response, next) 
             Data = categoryData;
             dataCarrier = categoryData;
 
-            response.render('categories', { categories: Data,
-                nullData: 'categories/category_404.png',
-                parentId: request.params.id }); 
+            response.render('parentCategories', { categories: Data,
+                                            nullData: 'categories/category_404.png',
+                                            parentId: request.params.id }); 
         });
     });
 });
@@ -41,7 +41,7 @@ router.get('/:parent/:id', mid.requiresLogin, function(request, response, next) 
 // Get Categories by Id
 router.get('/:id', mid.requiresLogin, function(request, response, next) {
     let id = request.params.id;
-    var allCat = `${base_url}categories?secretKey=${secretKey}`;
+    let allCatUrl = `${base_url}categories?secretKey=${secretKey}`;
     var search_word = '';
 
     if(id === 'women') {
@@ -52,7 +52,8 @@ router.get('/:id', mid.requiresLogin, function(request, response, next) {
 
     function women_or_men(data) {
         let newData = [];
-        for (var i = 0; i < data.length; i++){
+        let length = data.length;
+        for (var i = 0; i < length; i++){
             if(data[i].id.startsWith(search_word)) {
                 newData.push(data[i]);
             }
@@ -60,7 +61,7 @@ router.get('/:id', mid.requiresLogin, function(request, response, next) {
         return newData;
     }
 
-    https.get(allCat, res => {
+    https.get(allCatUrl, res => {
         let body = '';
 
         res.on('data', data => {
@@ -73,17 +74,17 @@ router.get('/:id', mid.requiresLogin, function(request, response, next) {
             let genderData = women_or_men(Data);
 
             response.render('subCategories', { categories: genderData,
-                nullData: 'categories/category_404.png',
-                searchWord: search_word });   
+                                               nullData: 'categories/category_404.png',
+                                               searchWord: search_word });   
         });
     });
 });
 
 // Gel All Categories
 router.get('/', mid.requiresLogin, function(request, response, next) {
-    var allCategories = `${base_url}categories?secretKey=${secretKey}`;
+    const allCategoriesUrl = `${base_url}categories?secretKey=${secretKey}`;
 
-    https.get(allCategories, res => {
+    https.get(allCategoriesUrl, res => {
         let body = '';
 
         res.on('data', data => {
@@ -96,8 +97,8 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
             const categoryData = JSON.parse(body);
             Data = categoryData;
 
-            response.render('index', { categories: Data, 
-                nullData: 'categories/category_404.png' });
+            response.render('allCategories', { categories: Data, 
+                                       nullData: 'categories/category_404.png' });
         });
     });
 });

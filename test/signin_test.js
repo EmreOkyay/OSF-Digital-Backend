@@ -9,17 +9,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use('auth/signin', signin);
 
 describe('POST /auth/signin', function() {
-it('responds with json', function(done) {
-    request(app)
-    .post('/auth/signin')
-    .send({secretKey: secretKey,
-           email: 'aaa@gmail.com',
-           password: '123456'})
-    .expect('Content-Type', 'text/html; charset=utf-8')
-    .expect(200)
-    .end(function(err, res) {
-        if (err) return done(err);
-        return done();
-    });
-});
+	it('responds with json', function(done) {
+		request(app)
+		.post('/auth/signin')
+		.send({
+			secretKey: secretKey,
+			email: 'aaa@gmail.com',
+			password: '123456'
+		})
+		.expect('Content-Type', 'text/html; charset=utf-8')
+		.expect(200)
+		.end(function(err, res) {
+			if (err) return done(err);
+			return done();
+		});
+	});
 });
