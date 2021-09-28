@@ -1,0 +1,18 @@
+extends layout 
+
+block content
+    ul(style='list-style-type:none')
+        .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
+            each oneItem in cartItems
+                .container.row.mb-5.pb-5
+                    .col-9
+                        h3= oneItem[0].image_groups[0].images[0].title
+                    .col-5
+                        img(src='../../images/' + oneItem[0].image_groups[0].images[0].link)
+                    .col-6
+                        br
+                        p= oneItem[0].short_description
+
+            // oneItem[0].page_description ?? , oneItem[0].price, oneItem[0].id, oneItem[0].currency,
+            // oneItem[0].image_groups[0] ve [1] = large, [2] ve [3] = medium, ...
+            // oneItem[0].image_groups[0].alt, oneItem[0].image_groups[0].link, oneItem[0].image_groups[0].title, oneItem[0].short_description 

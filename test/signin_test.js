@@ -1,27 +1,31 @@
-const signin = require('../routes/index.js');
+const signin = require('../routes/auth.js');
+const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
 
 const request = require('supertest');
 const express = require('express');
 const app = express();
+const expect = require('chai').expect;
+var bodyParser = require('body-parser');
 
-app.use(express.urlencoded({ extended: false }));
-app.use('auth/signin', signin);
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/auth/signin', signin);
 
-describe('POST /auth/signin', function() {
-	it('responds with json', function(done) {
+describe("POST /auth/signin", () => {
+	it('Should signin properly', function (done) {
 		request(app)
-		.post('/auth/signin')
-		.send({
-			secretKey: secretKey,
-			email: 'aaa@gmail.com',
-			password: '123456'
+		.post(`${base_url}auth/signin`)
+		.set('Accept', 'application/json')
+		.set('Content-Type', 'application/json')
+		.send({ secretKey: secretKey, email: "aaa@gmail.com", password: "123456" })
+		// .expect(200)
+		.expect('Content-Type', "text/html; charset=utf-8")
+		.expect(function(response) {
+			console.log(response);
+			expect(response.body).not.to.be.empty;
+			expect(response.body).to.be.an('object');
 		})
-		.expect('Content-Type', 'text/html; charset=utf-8')
-		.expect(200)
-		.end(function(err, res) {
-			if (err) return done(err);
-			return done();
-		});
+		.end(done);
 	});
-});
+  })

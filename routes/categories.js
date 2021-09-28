@@ -16,7 +16,6 @@ router.use(express.static('public'));
 // Get Categories by Parent Id
 router.get('/:parent/:id', mid.requiresLogin, function(request, response, next) {
     let id = request.params.id;
-    let parent = request.params.parent;
     let parentCatUrl = `${base_url}categories/parent/${id}?secretKey=${secretKey}`;
 
     https.get(parentCatUrl, res => {  
