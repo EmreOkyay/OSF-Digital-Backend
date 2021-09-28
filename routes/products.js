@@ -66,13 +66,16 @@ router.get('/product_search', mid.requiresLogin, function(request, response, nex
              res.on('end', () => {
                  const categoryData = JSON.parse(body);
                  Data = categoryData;
+                 let arrayForCart = [];
+                 arrayForCart = Data;
                  breadcrumb_id = Data[0].primary_category_id;
                  breadcrumb_id_2 = removeWords(breadcrumb_id);
      
                  response.render('specificProduct', { products: Data,
                                                       productId: product_id,
                                                       breadcrumbId: breadcrumb_id,
-                                                      secondBreadcrumbId: breadcrumb_id_2 });
+                                                      secondBreadcrumbId: breadcrumb_id_2, 
+                                                      arrayForCart: arrayForCart });
              });
          });
      }

@@ -27,46 +27,6 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-
-// router.post('/cart/additem', function(request, response, next) {
-
-// 	(async () => {
-// 		const rawResponse = await fetch(`${base_url}auth/signup`, {
-// 		  method: 'POST',
-// 		  headers: {
-// 			'Content-Type': 'application/json'
-// 		},
-// 		body: JSON.stringify({
-// 			"secretKey": `${secretKey}`,
-// 			"name": req.body.name,
-// 			"email": req.body.email,
-// 			"password": req.body.password
-// 		})
-// 		});
-// 		const data = await rawResponse.json();
-
-// 		var userData = {
-// 			_id: data.user._id,
-// 			secretKey: data.user.secretKey,
-// 			name: data.user.name,
-// 			email: data.user.email,
-// 			password: req.body.password,
-// 			createdAt: data.user.createdAt,
-// 			__v: data.user.__v,
-// 			token: data.token
-// 		};
-
-// 		User.create(userData, function(error, user) {
-// 			if (error) {
-// 				return next(error);
-// 			} else {
-// 				req.session.userId = user._id;
-// 				return res.redirect('/');
-// 			}
-// 		});
-// 	})();
-// });
-
 // Read the name from the cookie
 router.get('/', (req, res, next) => {
     let name = req.cookies.name;

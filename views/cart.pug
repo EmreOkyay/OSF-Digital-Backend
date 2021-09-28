@@ -2,6 +2,11 @@ extends layout
 
 block content
     ul(style='list-style-type:none')
+        nav(aria-label='breadcrumb')
+            ol.breadcrumb
+                li.breadcrumb-item
+                    a(href='/') Home            
+                li.breadcrumb-item.active(aria-current='page') Cart   
         .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
             each oneItem in cartItems
                 .container.row.mb-5.pb-5
