@@ -7,6 +7,8 @@ const fetch = require('node-fetch');
 var XMLHttpRequest = require('xhr2');
 var xhr = new XMLHttpRequest();
 const https = require('https');
+var mid = require('../middleware');
+const User = require('../models/user');
 // const JWT_Token = require('./auth.js')
 
 router.use(express.static('public'));
@@ -27,10 +29,11 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
+router.use(express.static('public'));
+
 // Read the name from the cookie
 router.get('/', (req, res, next) => {
-    let name = req.cookies.name;
-    res.render('index', { name });
+    res.render('index');
 });
 
 

@@ -15,17 +15,18 @@ app.use('/auth/signin', signin);
 describe("POST /auth/signin", () => {
 	it('Should signin properly', function (done) {
 		request(app)
-		.post(`${base_url}auth/signin`)
-		.set('Accept', 'application/json')
-		.set('Content-Type', 'application/json')
-		.send({ secretKey: secretKey, email: "aaa@gmail.com", password: "123456" })
-		// .expect(200)
+			.post(`/${base_url}/auth/signin`)
+			.set('Accept', 'application/json')
+			.set('Content-Type', 'application/json')
+			.send({ 
+				secretKey: secretKey, 
+				email: "f@hotmail.com", 
+				password: "111" 
+			})
 		.expect('Content-Type', "text/html; charset=utf-8")
 		.expect(function(response) {
-			console.log(response);
-			expect(response.body).not.to.be.empty;
 			expect(response.body).to.be.an('object');
 		})
 		.end(done);
 	});
-  })
+})

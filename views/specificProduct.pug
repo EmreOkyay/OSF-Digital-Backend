@@ -20,7 +20,7 @@ block content
                 img(src='../../images/' + products[0].image_groups[0].images[0].link)
             .col-6
                 p= products[0].long_description
-                form(action='/auth/cart/addItem' method='post')
+                form(action='/cart/addItem' method='post')
                     button(type='submit' name='productId' value=arrayForCart) Buy now
                 if products[0].currency == 'USD'
                     p Price: $ #{products[0].price}

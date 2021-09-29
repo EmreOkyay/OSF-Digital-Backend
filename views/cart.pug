@@ -17,6 +17,8 @@ block content
                     .col-6
                         br
                         p= oneItem[0].short_description
+                        form(action='/cart/removeItem' method='post')
+                            button(type='submit' name='deleteProductId' value=oneItem) Remove
 
             // oneItem[0].page_description ?? , oneItem[0].price, oneItem[0].id, oneItem[0].currency,
             // oneItem[0].image_groups[0] ve [1] = large, [2] ve [3] = medium, ...
