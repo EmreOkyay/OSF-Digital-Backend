@@ -22,5 +22,7 @@ block content
                 p= products[0].long_description
                 form(action='/cart/addItem' method='post')
                     button(type='submit' name='productId' value=arrayForCart) Buy now
+                form(action='/wishlist/addItem' method='post')
+                    button(type='submit' name='productId' value=arrayForCart) Wishlist                   
                 if products[0].currency == 'USD'
                     p Price: $ #{products[0].price}

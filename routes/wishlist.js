@@ -9,17 +9,16 @@ router.use(express.static('public'));
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
 
-// Get the cart
+// Get the wishlist
 router.get('/', mid.requiresLogin, function(request, response, next) {
 
 	JWT_Token = request.cookies.JWT_Token;
 
-	// Send a fetch request to get the data about the cart so we can send the product ıd and get the actual info about the product
-    let cartUrl = `${base_url}cart?secretKey=${secretKey}`;
+    let wishlistUrl = `${base_url}wishlist?secretKey=${secretKey}`;
 	
 	(async () => {
         try {
-            const rawResponse = await fetch(cartUrl, {
+            const rawResponse = await fetch(wishlistUrl, {
                 method: 'GET',
                 headers: {
                   'Authorization':`Bearer ${JWT_Token}`,
@@ -28,43 +27,45 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
               });
               const data = await rawResponse.json();
       
-              // The  array that's going to hold all the cart data
+              // The  array that's going to hold all the wishlist data
               let bigArray = [];
       
               for(let i = 0; i < data.items.length; i++) {
                   // After getting the productId, we need to send a https req to get the image and other info about the product
-                  var cartProductId = data.items[i].productId;
-                  const cartSpecificProductUrl = `${base_url}products/product_search?id=${cartProductId}&secretKey=${secretKey}`;
+                  var wishlistProductId = data.items[i].productId;
+                  const wishlistSpecificProductUrl = `${base_url}products/product_search?id=${wishlistProductId}&secretKey=${secretKey}`;
       
-                  const ress = await fetch(cartSpecificProductUrl)
-                  const cartData = await ress.json()
-                  bigArray.push(cartData);
+                  const ress = await fetch(wishlistSpecificProductUrl)
+                  const wishlistData = await ress.json()
+                  bigArray.push(wishlistData);
       
                   if (i === data.items.length - 1) {
-                      response.render('cart', { cartItems: bigArray });
+                      response.render('wishlist', { wishlistItems: bigArray });
                   }
               }
         } catch (error) {
-            response.render('noCart');
+            response.render('noWishlist');
         }
 	})();
 });
 
-// Add item to the cart
+// alert("This item does not exist in our stocks yet, please wishlist it");			
+
+// Add item to the wishlist
 router.post('/addItem', function(request, response, next) {
 
 	JWT_Token = request.cookies.JWT_Token;
 
-    let productDataForCart = JSON.parse(request.body.productId);
-	// console.log(productDataForCart[0].variants.length);
-    let addItemToCartUrl = `${base_url}cart/addItem?secretKey=${secretKey}`;
+    let productDataForWishlist = JSON.parse(request.body.productId);
 
-	if (productDataForCart[0].variants.length === 0) {
+    let addItemToWishlistUrl = `${base_url}wishlist/addItem?secretKey=${secretKey}`;
+
+	if (productDataForWishlist[0].variants.length === 0) {
 		alert("This item does not exist in our stocks yet, please wishlist it");			
 	} else {
 		(async () => {
 			try {
-				const rawResponse = await fetch(addItemToCartUrl, {
+				const rawResponse = await fetch(addItemToWishlistUrl, {
 					method: 'POST',
 					headers: {
 					  'Authorization':`Bearer ${JWT_Token}`,
@@ -72,13 +73,13 @@ router.post('/addItem', function(request, response, next) {
 				  },
 				  body: JSON.stringify({
 					  "secretKey": `${secretKey}`,
-					  "productId": productDataForCart[0].id,
-					  "variantId": productDataForCart[0].variants[0].product_id,
+					  "productId": productDataForWishlist[0].id,
+					  "variantId": productDataForWishlist[0].variants[0].product_id,
 					  "quantity": "3"
 				  })
 				  });
 				  const data = await rawResponse.json();
-				  response.redirect('/cart');
+				  response.redirect('/wishlist');
 			} catch (error) {
 				response.render('error', { message: error.message, status: error.status, stack: error.stack });
 			}
@@ -86,17 +87,17 @@ router.post('/addItem', function(request, response, next) {
 	}
 });
 
-// Delete item from the cart
+// Delete item from the wishlist
 router.post('/removeItem', function(request, response, next) {
 
 	JWT_Token = request.cookies.JWT_Token;
 
     let productDataForRemoval = JSON.parse(request.body.deleteProductId);
-    let removeItemFromCartUrl = `${base_url}cart/removeItem?secretKey=${secretKey}`;
+    let removeItemFromWishlistUrl = `${base_url}wishlist/removeItem?secretKey=${secretKey}`;
 
 	(async () => {
 		try {
-			const rawResponse = await fetch(removeItemFromCartUrl, {
+			const rawResponse = await fetch(removeItemFromWishlistUrl, {
 				method: 'DELETE',
 				headers: {
 					'Authorization':`Bearer ${JWT_Token}`,
@@ -108,7 +109,8 @@ router.post('/removeItem', function(request, response, next) {
 					"variantId": productDataForRemoval[0].variants[0].product_id
 				})
 				});
-				response.redirect('/cart');
+				// const data = await rawResponse.json();
+				response.redirect('/wishlist');
 		} catch (error) {
 			response.render('error', { message: error.message, status: error.status, stack: error.stack });				
 		}

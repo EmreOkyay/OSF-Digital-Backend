@@ -5,11 +5,8 @@ const Tracing = require('@sentry/tracing');
 const app = express();
 const fetch = require('node-fetch');
 var XMLHttpRequest = require('xhr2');
-var xhr = new XMLHttpRequest();
 const https = require('https');
 var mid = require('../middleware');
-const User = require('../models/user');
-// const JWT_Token = require('./auth.js')
 
 router.use(express.static('public'));
 

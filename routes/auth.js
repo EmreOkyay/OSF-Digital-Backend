@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
 
-let JWT_Token = '';
+// let JWT_Token = '';
 
 router.use(express.static('public'));
 router.use(cookieParser());
@@ -46,8 +46,8 @@ router.post('/signup', function(req, res, next) {
                 });
                 const data = await rawResponse.json();
                 
-                JWT_Token = data.token;
-                res.cookie('JWT_Token', JWT_Token);
+                // JWT_Token = data.token;
+                res.cookie('JWT_Token', data.token);
 
                 var userData = {
                     _id: data.user._id,
@@ -99,9 +99,8 @@ router.post('/signin', function(req, res, next) {
             });
             const data = await rawResponse.json();
             
-            JWT_Token = data.token;
-            res.cookie('JWT_Token', JWT_Token);
-            // console.log(jwtToken);
+            // JWT_Token = data.token;
+            res.cookie('JWT_Token', data.token);
             
             User.authenticate(req.body.email, req.body.password, function (error, user) {
                 if (error || !user) {

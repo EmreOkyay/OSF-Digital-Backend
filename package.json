@@ -9,8 +9,7 @@
   "description": "OSF Backend Project.",
   "scripts": {
     "start": "node ./bin/www",
-    "test": "nyc mocha",
-    "lint": "eslint ."
+    "test": "nyc mocha"
   },
   "dependencies": {
     "@sentry/node": "^6.13.2",
