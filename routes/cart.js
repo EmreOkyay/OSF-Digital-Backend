@@ -30,17 +30,21 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
       
               // The  array that's going to hold all the cart data
               let bigArray = [];
+			  let quantityArray = [];
       
               for(let i = 0; i < data.items.length; i++) {
                   // After getting the productId, we need to send a https req to get the image and other info about the product
                   var cartProductId = data.items[i].productId;
                   const cartSpecificProductUrl = `${base_url}products/product_search?id=${cartProductId}&secretKey=${secretKey}`;
       
-                  const ress = await fetch(cartSpecificProductUrl)
-                  const cartData = await ress.json()
+                  const res = await fetch(cartSpecificProductUrl)
+                  const cartData = await res.json()
+				  cartData.quantity = data.items[i].quantity; 
                   bigArray.push(cartData);
       
                   if (i === data.items.length - 1) {
+					//   console.log("BIG ARRAY: ");
+					//   console.log(bigArray);
                       response.render('cart', { cartItems: bigArray });
                   }
               }
@@ -60,7 +64,7 @@ router.post('/addItem', function(request, response, next) {
     let addItemToCartUrl = `${base_url}cart/addItem?secretKey=${secretKey}`;
 
 	if (productDataForCart[0].variants.length === 0) {
-		alert("This item does not exist in our stocks yet, please wishlist it");			
+		response.render('productError');			
 	} else {
 		(async () => {
 			try {
@@ -74,7 +78,7 @@ router.post('/addItem', function(request, response, next) {
 					  "secretKey": `${secretKey}`,
 					  "productId": productDataForCart[0].id,
 					  "variantId": productDataForCart[0].variants[0].product_id,
-					  "quantity": "3"
+					  "quantity": "1"
 				  })
 				  });
 				  const data = await rawResponse.json();

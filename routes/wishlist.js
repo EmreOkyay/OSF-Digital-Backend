@@ -29,6 +29,7 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
       
               // The  array that's going to hold all the wishlist data
               let bigArray = [];
+			  let quantityArray = [];
       
               for(let i = 0; i < data.items.length; i++) {
                   // After getting the productId, we need to send a https req to get the image and other info about the product
@@ -37,6 +38,7 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
       
                   const ress = await fetch(wishlistSpecificProductUrl)
                   const wishlistData = await ress.json()
+				  wishlistData.quantity = data.items[i].quantity; 
                   bigArray.push(wishlistData);
       
                   if (i === data.items.length - 1) {
@@ -61,7 +63,7 @@ router.post('/addItem', function(request, response, next) {
     let addItemToWishlistUrl = `${base_url}wishlist/addItem?secretKey=${secretKey}`;
 
 	if (productDataForWishlist[0].variants.length === 0) {
-		alert("This item does not exist in our stocks yet, please wishlist it");			
+		response.render('productError');			
 	} else {
 		(async () => {
 			try {

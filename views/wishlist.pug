@@ -17,5 +17,6 @@ block content
                     .col-6
                         br
                         p= oneItem[0].short_description
+                        p Quantity: #{oneItem.quantity}
                         form(action='/wishlist/removeItem' method='post')
                             button(type='submit' name='deleteProductId' value=oneItem) Remove
