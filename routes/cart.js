@@ -90,6 +90,38 @@ router.post('/addItem', function(request, response, next) {
 	}
 });
 
+// Change quantity of the Item for Cart
+router.post('/changeItemQuantity', function(request, response, next) {
+
+	JWT_Token = request.cookies.JWT_Token;
+
+    let productDataForCart = JSON.parse(request.body.generalData);
+	let newQuantity = request.body.newQuantity;
+    let changeQuantityUrl = `${base_url}cart/changeItemQuantity?secretKey=${secretKey}`;
+
+	(async () => {
+		try {
+			const rawResponse = await fetch(changeQuantityUrl, {
+				method: 'POST',
+				headers: {
+					'Authorization':`Bearer ${JWT_Token}`,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					"secretKey": `${secretKey}`,
+					"productId": productDataForCart[0].id,
+					"variantId": productDataForCart[0].variants[0].product_id,
+					"quantity": newQuantity
+				})
+				});
+				const data = await rawResponse.json();
+				response.redirect('/cart');
+		} catch (error) {
+			response.render('error', { message: error.message, status: error.status, stack: error.stack });
+		}
+	})();
+});
+
 // Delete item from the cart
 router.post('/removeItem', function(request, response, next) {
 

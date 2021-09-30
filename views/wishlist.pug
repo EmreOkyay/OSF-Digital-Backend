@@ -20,3 +20,10 @@ block content
                         p Quantity: #{oneItem.quantity}
                         form(action='/wishlist/removeItem' method='post')
                             button(type='submit' name='deleteProductId' value=oneItem) Remove
+                        form(action='/wishlist/changeItemQuantity' method='post')
+                            label(for='newQuantity')
+                            br
+                            | Quantity: 
+                            input#newQuantity(type='text' name='newQuantity')                            
+                            br
+                            button(type='submit' name='generalData' value=oneItem) Change 
