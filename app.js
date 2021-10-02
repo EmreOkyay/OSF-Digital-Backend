@@ -23,7 +23,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized: false,
 	store: new MongoStore({
-		mongoUrl: 'mongodb://localhost:27017/OSF-Login'
+		mongoUrl: 'mongodb://ThisIsMe:emre123@osf-project-shard-00-00.kgz4k.mongodb.net:27017,osf-project-shard-00-01.kgz4k.mongodb.net:27017,osf-project-shard-00-02.kgz4k.mongodb.net:27017/OSF-Project?ssl=true&replicaSet=atlas-zjar3u-shard-0&authSource=admin&retryWrites=true&w=majority'
 	})
 }));
 
