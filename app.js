@@ -35,7 +35,9 @@ app.use(function(req, res, next) {
 
 
 // mongodb connection
-mongoose.connect('mongodb+srv://ThisIsMe:emre123@osf-project-shard-00-00.kgz4k.mongodb.net:27017,osf-project-shard-00-01.kgz4k.mongodb.net:27017,osf-project-shard-00-02.kgz4k.mongodb.net:27017/OSF-Project?ssl=true&replicaSet=atlas-zjar3u-shard-0&authSource=admin&retryWrites=true&w=majority');
+setTimeout(function() {
+	mongoose.connect('mongodb+srv://ThisIsMe:emre123@osf-project-shard-00-00.kgz4k.mongodb.net:27017,osf-project-shard-00-01.kgz4k.mongodb.net:27017,osf-project-shard-00-02.kgz4k.mongodb.net:27017/OSF-Project?ssl=true&replicaSet=atlas-zjar3u-shard-0&authSource=admin&retryWrites=true&w=majority');
+}, 60000);
 var db = mongoose.connection;
 
 // mongo error
