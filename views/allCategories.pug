@@ -5,9 +5,9 @@ block content
 	br
 	nav(aria-label='breadcrumb')
 		ol.breadcrumb
-			li.breadcrumb-item
+			li.h6.breadcrumb-item
 				a(href='/') Home
-			li.breadcrumb-item.active(aria-current='page') Categories    
+			li.h6.breadcrumb-item.active(aria-current='page') Categories    
 	.subcategories
 		ul(style='list-style-type:none') 
 			each val in categories
@@ -16,12 +16,12 @@ block content
 				else if val.id == 'mens-clothing'
 					continue
 				else
-					.oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
-						h3.text-center= val.name
+					.oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded.text-center
+						p.display-6= val.page_title
 						hr
-						p= val.page_title
-						img(src='images/' + val.image)
-						li= val.page_description
 						a(href='/products/product_search?id=' + val.id)
-							input(type='button' value='View Products')
+							img.w-75(src='images/' + val.image)
+						li.h5= val.page_description
 						br
+
+						// input.btn.btn-primary(type='button' value='View Products')

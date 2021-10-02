@@ -5,16 +5,16 @@ header
         .d-flex.flex-row
             if !currentUser
                 form.p-2(action='/auth/signin')
-                    input(type='submit' value='Sign In')
+                    input.btn.btn-primary(type='submit' value='Sign In')
                 form.p-2(action='/auth/signup')
-                    input(type='submit' value='Sign Up')
+                    input.btn.btn-primary(type='submit' value='Sign Up')
             else 
                 form.p-2(action='/auth/signout')
-                    input(type='submit' value='Sign Out')
+                    input.btn.btn-primary(type='submit' value='Sign Out')
                 form.p-2(action='/cart')
-                    input(type='submit' value='Cart')
+                    input.btn.btn-primary(type='submit' value='Cart')
                 form.p-2(action='/wishlist')
-                    input(type='submit' value='Wishlist')                    
+                    input.btn.btn-primary(type='submit' value='Wishlist')                    
                 .dropdown.p-2
                     button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
                         | Womens

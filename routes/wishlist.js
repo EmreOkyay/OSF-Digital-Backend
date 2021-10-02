@@ -77,7 +77,7 @@ router.post('/addItem', function(request, response, next) {
 					  "secretKey": `${secretKey}`,
 					  "productId": productDataForWishlist[0].id,
 					  "variantId": productDataForWishlist[0].variants[0].product_id,
-					  "quantity": "3"
+					  "quantity": "1"
 				  })
 				  });
 				  const data = await rawResponse.json();

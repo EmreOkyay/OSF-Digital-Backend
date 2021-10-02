@@ -3,15 +3,15 @@ extends layout
 block content
     nav(aria-label='breadcrumb')
         ol.breadcrumb
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/') Home
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/categories') Categories
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/categories/parent/' + secondBreadcrumbId) #{secondBreadcrumbId}                     
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/products/product_search?id=' + breadcrumbId) #{breadcrumbId}  
-            li.breadcrumb-item.active(aria-current='page') #{productId}  
+            li.h6.breadcrumb-item.active(aria-current='page') #{productId}  
     ul(style='list-style-type:none')
         .container.row
             .col-9
@@ -19,15 +19,24 @@ block content
             .col-5
                 img(src='../../images/' + products[0].image_groups[0].images[0].link)
             .col-6
-                p= products[0].long_description
+                p.h6= products[0].long_description
                 if products[0].variants.length == 0
+                    br
                     if products[0].currency == 'USD'
-                        p Price: $ #{products[0].price}
-                        p This product is currently not avaliable
+                        p.h6 Price: $ #{products[0].price}
+                        br
+                        p.h6.text-danger This product is currently not avaliable
                 else 
-                    form(action='/cart/addItem' method='post')
-                        button(type='submit' name='productId' value=arrayForCart) Buy now
-                    form(action='/wishlist/addItem' method='post')
-                        button(type='submit' name='productId' value=arrayForCart) Wishlist                   
-                    if products[0].currency == 'USD'
-                        p Price: $ #{products[0].price}
+                    br
+                    .row 
+                        .col
+                            if products[0].currency == 'USD'
+                                p.h6 Price: $ #{products[0].price}
+                        .col
+                            form(action='/cart/addItem' method='post')
+                                button.btn.btn-light(type='submit' name='productId' value=arrayForCart) Buy now
+                            br
+                        .col
+                            form(action='/wishlist/addItem' method='post')
+                                button.btn.btn-light(type='submit' name='productId' value=arrayForCart) Wishlist    
+                            br              

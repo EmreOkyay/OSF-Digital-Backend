@@ -1,18 +1,26 @@
 extends layout 
 
-block content 
-    h1 Sign Up
-    form(action='/auth/signup', method='post') 
-        label Please enter your email: 
-            input(type='text', name='email')
-        br
-        label Please enter your name: 
-            input(type='text', name='name')
-        br 
-        label Please enter your password: 
-            input(type='text', name='password')
-        br    
-        label Please confirm your password: 
-            input(type='text', name='confirmPassword')
-        br   
-        button(type='submit') Submit
+block content
+
+    .main.container.row
+        .col-md-6.col-md-offset-3
+            h1.display-4.m-b-2 Sign Up
+
+            form(action='/auth/signup', method='post')
+                .form-group 
+                    label Email: 
+                        input.form-control(type='text', placeholder='name@email.com' name='email')
+                br
+                .form-group
+                    label Name: 
+                        input.form-control(type='text', placeholder='first and last' name='name')
+                br 
+                .form-group
+                    label Password: 
+                        input.form-control(type='text', name='password')
+                br    
+                .form-group
+                    label Confirm Password: 
+                        input.form-control(type='text', name='confirmPassword')
+                br   
+                button.btn.btn-primary(type='submit') Submit

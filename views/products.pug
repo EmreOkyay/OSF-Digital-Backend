@@ -3,27 +3,29 @@ extends layout
 block content
     nav(aria-label='breadcrumb')
         ol.breadcrumb
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/') Home
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/categories') Categories
-            li.breadcrumb-item
+            li.h6.breadcrumb-item
                 a(href='/categories/parent/' + breadcrumbId) #{breadcrumbId}                
-            li.breadcrumb-item.active(aria-current='page') #{productId}    
+            li.h6.breadcrumb-item.active(aria-current='page') #{productId}    
     ul(style='list-style-type:none')
         .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
             each val in products
-                .container.row.mb-5.pb-5
-                    .col-9
-                        h3= val.image_groups[0].images[0].title
-                    .col-5
-                        img(src='../../images/' + val.image_groups[0].images[0].link)
-                    .col-6
-                        br
-                        p= val.short_description
-                        p Price: $ #{val.price}
-                        a(href='/products/product_search?id=' + val.id)
-                            button.btn.btn-light(type='button') More Info
+                .row
+                    .container.row.mb-5.pb-5
+                        .col-9
+                            h3.h5= val.image_groups[0].images[0].title
+                        .col-5
+                            img(src='../../images/' + val.image_groups[0].images[0].link)
+                            br
+                        .col-6
+                            p.h6= val.short_description
+                            br
+                            p.h6 Price: $ #{val.price}
+                            a(href='/products/product_search?id=' + val.id)
+                                button.btn.btn-light(type='button') More Info
 
             // val.page_description ?? , val.price, val.id, val.currency,
             // val.image_groups[0] ve [1] = large, [2] ve [3] = medium, ...

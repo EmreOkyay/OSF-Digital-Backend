@@ -1,12 +1,18 @@
 extends layout 
 
 block content 
-    h1 Sign In
-    form(action='/auth/signin', method='post') 
-        label Please enter your email: 
-            input(type='text', name='email')
-        br 
-        label Please enter your password: 
-            input(type='text', name='password')
-        br     
-        button(type='submit') Submit
+
+    .main.container.row
+        .col-md-6.col-md-offset-3
+            h1.display-4.m-b-2 Sign In
+
+            form(action='/auth/signin', method='post')
+                .form-group 
+                    label Email: 
+                        input.form-control(type='text', name='email')
+                br
+                .form-group 
+                    label Password: 
+                        input.form-control(type='text', name='password')
+                br     
+                button.btn.btn-primary(type='submit') Submit

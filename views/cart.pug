@@ -4,29 +4,33 @@ block content
     ul(style='list-style-type:none')
         nav(aria-label='breadcrumb')
             ol.breadcrumb
-                li.breadcrumb-item
+                li.h6.breadcrumb-item
                     a(href='/') Home            
-                li.breadcrumb-item.active(aria-current='page') Cart   
+                li.h6.breadcrumb-item.active(aria-current='page') Cart   
         .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded
             each oneItem in cartItems
                 .container.row.mb-5.pb-5
                     .col-9
                         h3= oneItem[0].image_groups[0].images[0].title
                     .col-5
-                        img(src='../../images/' + oneItem[0].image_groups[0].images[0].link)
+                        img.img-thumbnail(src='../../images/' + oneItem[0].image_groups[0].images[0].link)
                     .col-6
                         br
-                        p= oneItem[0].short_description
-                        p Quantity: #{oneItem.quantity}
-                        form(action='/cart/removeItem' method='post')
-                            button(type='submit' name='deleteProductId' value=oneItem) Remove
+                        p.h6= oneItem[0].short_description
+                        br
+                        p.h6 Quantity: #{oneItem.quantity}
+                        br
                         form(action='/cart/changeItemQuantity' method='post')
                             label(for='newQuantity')
                             br
                             | Quantity: 
                             input#newQuantity(type='text' name='newQuantity')                            
                             br
-                            button(type='submit' name='generalData' value=oneItem) Change 
+                            br
+                            button.btn.btn-light(type='submit' name='generalData' value=oneItem) Change
+                        br 
+                        form(action='/cart/removeItem' method='post')
+                            button.btn.btn-light(type='submit' name='deleteProductId' value=oneItem) Remove
 
             // oneItem[0].page_description ?? , oneItem[0].price, oneItem[0].id, oneItem[0].currency,
             // oneItem[0].image_groups[0] ve [1] = large, [2] ve [3] = medium, ...
