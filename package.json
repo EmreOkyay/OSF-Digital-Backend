@@ -8,7 +8,7 @@
   "private": true,
   "description": "OSF Backend Project.",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node ./app.js",
     "test": "nyc mocha"
   },
   "dependencies": {
