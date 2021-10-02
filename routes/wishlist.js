@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const fetch = require('node-fetch');
 var mid = require('../middleware');
-
 router.use(express.static('public'));
 
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
@@ -29,10 +27,8 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
       
               // The  array that's going to hold all the wishlist data
               let bigArray = [];
-			  let quantityArray = [];
       
               for(let i = 0; i < data.items.length; i++) {
-                  // After getting the productId, we need to send a https req to get the image and other info about the product
                   var wishlistProductId = data.items[i].productId;
                   const wishlistSpecificProductUrl = `${base_url}products/product_search?id=${wishlistProductId}&secretKey=${secretKey}`;
       
@@ -49,9 +45,7 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
             response.render('noWishlist');
         }
 	})();
-});
-
-// alert("This item does not exist in our stocks yet, please wishlist it");			
+});	
 
 // Add item to the wishlist
 router.post('/addItem', function(request, response, next) {
@@ -59,7 +53,6 @@ router.post('/addItem', function(request, response, next) {
 	JWT_Token = request.cookies.JWT_Token;
 
     let productDataForWishlist = JSON.parse(request.body.productId);
-
     let addItemToWishlistUrl = `${base_url}wishlist/addItem?secretKey=${secretKey}`;
 
 	if (productDataForWishlist[0].variants.length === 0) {
@@ -80,7 +73,6 @@ router.post('/addItem', function(request, response, next) {
 					  "quantity": "1"
 				  })
 				  });
-				  const data = await rawResponse.json();
 				  response.redirect('/wishlist');
 			} catch (error) {
 				response.render('error', { message: error.message, status: error.status, stack: error.stack });
@@ -113,7 +105,6 @@ router.post('/changeItemQuantity', function(request, response, next) {
 					"quantity": newQuantity
 				})
 				});
-				const data = await rawResponse.json();
 				response.redirect('/wishlist');
 		} catch (error) {
 			response.render('error', { message: error.message, status: error.status, stack: error.stack });
@@ -143,7 +134,6 @@ router.post('/removeItem', function(request, response, next) {
 					"variantId": productDataForRemoval[0].variants[0].product_id
 				})
 				});
-				// const data = await rawResponse.json();
 				response.redirect('/wishlist');
 		} catch (error) {
 			response.render('error', { message: error.message, status: error.status, stack: error.stack });				

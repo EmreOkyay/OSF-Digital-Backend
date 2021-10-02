@@ -9,11 +9,10 @@ const cookieParser = require('cookie-parser');
 const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
 const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
 
-// let JWT_Token = '';
-
 router.use(express.static('public'));
 router.use(cookieParser());
 
+// Signup
 router.get('/signup', mid.loggedOut, (req, res) => {
     res.render('signup');
 });
@@ -46,7 +45,6 @@ router.post('/signup', function(req, res, next) {
                 });
                 const data = await rawResponse.json();
                 
-                // JWT_Token = data.token;
                 res.cookie('JWT_Token', data.token);
 
                 var userData = {
@@ -76,12 +74,11 @@ router.post('/signup', function(req, res, next) {
     }
 });
 
-// SignIn
+// Signin
 router.get('/signin', mid.loggedOut, function(req, res, next) {
     return res.render('signin');
 });
 
-// How to Authenticate Users
 router.post('/signin', function(req, res, next) {
     if (req.body.email && req.body.password) {
 
@@ -99,7 +96,6 @@ router.post('/signin', function(req, res, next) {
             });
             const data = await rawResponse.json();
             
-            // JWT_Token = data.token;
             res.cookie('JWT_Token', data.token);
             
             User.authenticate(req.body.email, req.body.password, function (error, user) {
@@ -120,6 +116,7 @@ router.post('/signin', function(req, res, next) {
     }
 });
 
+// Signout
 router.get('/signout', function(req, res, next) {
     if (req.session) {
         // Delete session object

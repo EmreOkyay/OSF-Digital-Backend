@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const fetch = require('node-fetch');
 var mid = require('../middleware');
 
@@ -14,7 +13,6 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
 
 	JWT_Token = request.cookies.JWT_Token;
 
-	// Send a fetch request to get the data about the cart so we can send the product ıd and get the actual info about the product
     let cartUrl = `${base_url}cart?secretKey=${secretKey}`;
 	
 	(async () => {
@@ -30,10 +28,10 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
       
               // The  array that's going to hold all the cart data
               let bigArray = [];
-			  let quantityArray = [];
       
               for(let i = 0; i < data.items.length; i++) {
-                  // After getting the productId, we need to send a https req to get the image and other info about the product
+
+                  // After getting the productId, we need to send an https req to get the image and other info about the product
                   var cartProductId = data.items[i].productId;
                   const cartSpecificProductUrl = `${base_url}products/product_search?id=${cartProductId}&secretKey=${secretKey}`;
       
@@ -43,8 +41,6 @@ router.get('/', mid.requiresLogin, function(request, response, next) {
                   bigArray.push(cartData);
       
                   if (i === data.items.length - 1) {
-					//   console.log("BIG ARRAY: ");
-					//   console.log(bigArray);
                       response.render('cart', { cartItems: bigArray });
                   }
               }
@@ -60,7 +56,6 @@ router.post('/addItem', function(request, response, next) {
 	JWT_Token = request.cookies.JWT_Token;
 
     let productDataForCart = JSON.parse(request.body.productId);
-	// console.log(productDataForCart[0].variants.length);
     let addItemToCartUrl = `${base_url}cart/addItem?secretKey=${secretKey}`;
 
 	if (productDataForCart[0].variants.length === 0) {

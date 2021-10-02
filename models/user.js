@@ -23,7 +23,7 @@ var UserSchema = new mongoose.Schema({
     token: { type: String }
 })
 
-// authenticate input against database documents, This is how we authenticate in user.js, look at index.js too
+// authenticate input against database documents
 UserSchema.statics.authenticate = function(email, password, callback) {
     User.findOne({ email: email })
         .exec(function (error, user) {
