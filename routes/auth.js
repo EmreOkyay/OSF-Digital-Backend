@@ -44,6 +44,8 @@ router.post('/signup', function(req, res, next) {
                 })
                 });
                 const data = await rawResponse.json();
+
+                console.log(data);
                 
                 res.cookie('JWT_Token', data.token);
 
