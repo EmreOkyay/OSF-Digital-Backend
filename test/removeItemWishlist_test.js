@@ -1,6 +1,6 @@
 const wishlist = require('../routes/wishlist.js');
-const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
-const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
+const base_url = '<baseUrl>';
+const secretKey = '<secretKey>';
 let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTI3ODEyYzU4YzBjMDAyNDc3NDRkMCIsImlhdCI6MTYzMjk1MzI3NCwiZXhwIjoxNjMzMDM5Njc0fQ.K-luCvjZWbUCcT2V8XLasNk9asO_uKS3gXoz6_975hw';
 
 const request = require('supertest');
