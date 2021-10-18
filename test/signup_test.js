@@ -1,6 +1,6 @@
 const signup = require('../routes/auth.js');
-const base_url = 'https://osf-digital-backend-academy.herokuapp.com/api/';
-const secretKey = '$2a$08$wurKWjXAIBE8zHmIsC8wPONR5Dk6X/Ov4zdrR6Rr0BQT5kqQtIq5m';
+const base_url = '<baseUrl>';
+const secretKey = '<secretKey>';
 
 const request = require('supertest');
 const express = require('express');
